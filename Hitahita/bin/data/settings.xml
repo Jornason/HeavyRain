@@ -1,0 +1,9 @@
+<group>
+	<pick_color>1</pick_color>
+	<angle>0</angle>
+	<point_size>2.5</point_size>
+	<setp>2</setp>
+	<Z_position>-1000</Z_position>
+	<Z_thresh>1000</Z_thresh>
+<group/>
+</group>
