@@ -36,5 +36,10 @@ public:
     ofParameter<float> posz;
     ofParameter<float> thresh;
     ofParameter<int> suimen;
+     ofParameter<int> suimenX;
+     ofParameter<int> suimenZ;
+    
+    ofBoxPrimitive box; //水面の直方体
+    ofLight light;
     
 };

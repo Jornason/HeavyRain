@@ -37,10 +37,12 @@ void testApp::setup() {
     gui.add(pick_color.set("pick color", true));
     gui.add(angle.set("angle", 0, -40, 40));
     gui.add(point_size.set("point size", 3.65, 0, 10.0));
-    gui.add(step.set("step",3,1,10));
-    gui.add(posz.set("Z position", -1000, -4000, 0));
+    gui.add(step.set("step",3,1,100));
+    gui.add(posz.set("Z position", 150, -4000, 1000));
     gui.add(thresh.set("Z thresh", 4000, 0, 10000));
-     gui.add(suimen.set("water surface", 400, 0, 480));
+    gui.add(suimen.set("water surface", 200, 0, 480));
+    gui.add(suimenX.set("water surface X", 0, -1000, 1000));
+    gui.add(suimenZ.set("water surface Z", 1000, -3000, 3000));
     
 }
 
@@ -56,12 +58,13 @@ void testApp::update() {
 }
 
 void testApp::draw() {
+    gui.draw();
     // ドラッグで視線を変更できるように(ofEasyCam)
     easyCam.begin();
     //ポイントクラウドの描画
     drawPointCloud();
     easyCam.end();
-    gui.draw();
+    
 }
 
 void testApp::drawPointCloud() {
@@ -75,13 +78,18 @@ void testApp::drawPointCloud() {
     
     // 設定した間隔で、画面の深度情報と色を取得してメッシュの頂点に設定
     //    int step = gui.getValueI("step");
-    for(int y = 0; y < h; y += step) {
-        for(int x = 0; x < w; x += step) {
-            if(kinect.getDistanceAt(x, y) < thresh) {
-                if (pick_color) {
-                    if( y > suimen){
-                     //   mesh.addColor(kinect.getColorAt(x,y));
-                        mesh.addColor(ofFloatColor(0,0,255));
+    for(int y = 0; y < h; y += step)
+    {
+        for(int x = 0; x < w; x += step)
+        {
+            if(kinect.getDistanceAt(x, y) < thresh)
+            {
+                if (pick_color)
+                {
+                    if( y > suimen)
+                    {
+                      //  mesh.addColor(kinect.getColorAt(x,y));
+                        mesh.addColor(ofFloatColor(0,0,255,100));
                     }else{
                         mesh.addColor(kinect.getColorAt(x,y));
                     }
@@ -93,13 +101,35 @@ void testApp::drawPointCloud() {
         }
     }
     
+    // 震度テストを有効に
+    glEnable(GL_DEPTH_TEST);
+    
+    //ライト利用可能
+    light.enable();
+    light.setSpotlight();
+    light.setPosition(-100, 100, 100);
+    light.setAmbientColor(ofFloatColor(1.0, 1.0,  1.0  ,1.0));
+    light.setDiffuseColor(ofFloatColor(0.5, 0.5, 1.0) );
+    light.setSpecularColor(ofFloatColor(1.0, 1.0, 1.0));
+    
     // メッシュの頂点を描画
     glPointSize(point_size);
     ofPushMatrix();
     ofScale(1, -1, -1);
     ofTranslate(0, 0, posz);
-    glEnable(GL_DEPTH_TEST);
+    
     mesh.drawVertices();
+    
+    /*
+     //ここで平面を描けないかなぁ
+     box.set(1500, 480-suimen, 1500);
+     for(int i=0; i<5; i++){
+     box.setSideColor(i, ofFloatColor(0, 0,1.0, 0.9));
+     }
+     box.setPosition(suimenX, suimen, suimenZ);
+     box.draw();
+     */
+    
     glDisable(GL_DEPTH_TEST);
     ofPopMatrix();
 }
