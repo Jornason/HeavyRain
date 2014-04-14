@@ -58,13 +58,15 @@ void testApp::update() {
 }
 
 void testApp::draw() {
-    gui.draw();
+
     // ドラッグで視線を変更できるように(ofEasyCam)
-    easyCam.begin();
+  easyCam.begin();
     //ポイントクラウドの描画
     drawPointCloud();
     easyCam.end();
-    
+    ofSetColor(255, 55, 255);
+    gui.draw();
+
 }
 
 void testApp::drawPointCloud() {
