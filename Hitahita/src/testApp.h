@@ -40,7 +40,15 @@ public:
      ofParameter<int> suimenX;
      ofParameter<int> suimenZ;
     
+    ofParameter<int> cameraX;
+    ofParameter<int> cameraY;
+    ofParameter<int> cameraZ;
+    
     ofBoxPrimitive box; //水面の直方体
     ofLight light;
     
+    ofCamera glCamera;
+    //注視点
+    ofVec3f lookVec;
+        
 };
