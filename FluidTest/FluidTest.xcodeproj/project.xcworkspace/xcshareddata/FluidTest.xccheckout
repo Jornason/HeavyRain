@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F461548B-9FBD-4D41-9659-953A6129E61D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FluidTest</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8F14E8F4-9E23-4CAC-A930-BE1BCAD40D25</key>
+		<string>https://github.com/onakaponpon/myAppsGit.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>FluidTest/FluidTest.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8F14E8F4-9E23-4CAC-A930-BE1BCAD40D25</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/onakaponpon/myAppsGit.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8F14E8F4-9E23-4CAC-A930-BE1BCAD40D25</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8F14E8F4-9E23-4CAC-A930-BE1BCAD40D25</string>
+			<key>IDESourceControlWCCName</key>
+			<string>myAppsGit</string>
+		</dict>
+	</array>
+</dict>
+</plist>
