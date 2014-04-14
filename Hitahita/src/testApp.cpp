@@ -38,11 +38,11 @@ void testApp::setup() {
     gui.add(angle.set("angle", 0, -40, 40));
     gui.add(point_size.set("point size", 3.65, 0, 50.0));
     gui.add(step.set("step",3,1,100));
-    gui.add(posz.set("Z position", 150, -4000, 1000));
+    gui.add(posz.set("Z position", -700, -4000, 1000));
     gui.add(thresh.set("Z thresh", 4000, 0, 10000));
     gui.add(suimen.set("water surface", 200, 0, 480));
-    //   gui.add(suimenX.set("water surface X", 0, -1000, 1000));
-    //    gui.add(suimenZ.set("water surface Z", 1000, -3000, 3000));
+      gui.add(suimenX.set("water surface X", 0, -1000, 1000));
+        gui.add(suimenZ.set("water surface Z", 1230, -3000, 3000));
     
     gui.add(cameraX.set("cameraX", 0, -1000, 1000));
     gui.add(cameraY.set("cameraY", 0, -1000, 1000));
@@ -105,8 +105,8 @@ void testApp::drawPointCloud() {
                 {
                     if( y > suimen)
                     {
-                        mesh.addColor(ofFloatColor(0,0,255,50)); //青色の追加
-                        //                       mesh.addColor(kinect.getColorAt(x,y));
+//                        mesh.addColor(ofFloatColor(0,0,255,50)); //青色の追加
+                                             mesh.addColor(kinect.getColorAt(x,y));
                     }else{
                         mesh.addColor(kinect.getColorAt(x,y));
                     }
@@ -135,17 +135,18 @@ void testApp::drawPointCloud() {
     glPointSize(point_size);
     ofPushMatrix();
     ofScale(1, -1, -1);
-    //    ofTranslate(0, 0, posz);
+       ofTranslate(0, 0, posz);
     mesh.drawVertices();
-    /*
+  
+    ofEnableAlphaBlending();
      //ここで平面を描けないかなぁ
      box.set(1500, 480-suimen, 1500);
      for(int i=0; i<5; i++){
-     box.setSideColor(i, ofFloatColor(0, 0,1.0, 0.9));
+     box.setSideColor(i, ofFloatColor(0, 0,1.0, 0.7));
      }
      box.setPosition(suimenX, suimen, suimenZ);
      box.draw();
-     */
+    ofDisableAlphaBlending();
     
     glDisable(GL_DEPTH_TEST);
     ofPopMatrix();
