@@ -1,0 +1,19 @@
+<panel>
+	<fluidCellsX>299</fluidCellsX>
+	<resizeFluid>0</resizeFluid>
+	<colorMult>0</colorMult>
+	<velocityMult>0</velocityMult>
+	<viscocity>0</viscocity>
+	<colorDiffusion>0</colorDiffusion>
+	<fadeSpeed>0</fadeSpeed>
+	<solverIterations>1</solverIterations>
+	<deltaT>0.1</deltaT>
+	<doRGB>1</doRGB>
+	<doVorticityConfinement>1</doVorticityConfinement>
+	<drawFluid>1</drawFluid>
+	<drawParticles>1</drawParticles>
+	<wrap_x>1</wrap_x>
+	<wrap_y>1</wrap_y>
+	<tuioXScaler>1</tuioXScaler>
+<panel/>
+</panel>

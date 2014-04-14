@@ -36,14 +36,22 @@ void testApp::setup() {
     gui.setup();
     gui.add(pick_color.set("pick color", true));
     gui.add(angle.set("angle", 0, -40, 40));
-    gui.add(point_size.set("point size", 3.65, 0, 10.0));
+    gui.add(point_size.set("point size", 3.65, 0, 50.0));
     gui.add(step.set("step",3,1,100));
     gui.add(posz.set("Z position", 150, -4000, 1000));
     gui.add(thresh.set("Z thresh", 4000, 0, 10000));
     gui.add(suimen.set("water surface", 200, 0, 480));
-    gui.add(suimenX.set("water surface X", 0, -1000, 1000));
-    gui.add(suimenZ.set("water surface Z", 1000, -3000, 3000));
+    //   gui.add(suimenX.set("water surface X", 0, -1000, 1000));
+    //    gui.add(suimenZ.set("water surface Z", 1000, -3000, 3000));
     
+    gui.add(cameraX.set("cameraX", 0, -1000, 1000));
+    gui.add(cameraY.set("cameraY", 0, -1000, 1000));
+    gui.add(cameraZ.set("cameraZ", 0, -1000, 1000));
+    
+    //  注視点　デフォルト
+    lookVec = ofVec3f(0,0,0);
+    glCamera.setPosition(cameraX, cameraY, cameraZ);
+
 }
 
 void testApp::update() {
@@ -55,15 +63,25 @@ void testApp::update() {
         kinectCam.setFromPixels(kinect.getPixels(), kinect.width, kinect.height, OF_IMAGE_COLOR);
         kinectDepth.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height, OF_IMAGE_GRAYSCALE);
     }
+    
+    glCamera.setPosition(cameraX, cameraY, cameraZ);
+    glCamera.lookAt(lookVec);
+    
 }
 
 void testApp::draw() {
     gui.draw();
-    // ドラッグで視線を変更できるように(ofEasyCam)
-    easyCam.begin();
-    //ポイントクラウドの描画
-    drawPointCloud();
-    easyCam.end();
+
+        easyCam.begin();
+        //ポイントクラウドの描画
+        drawPointCloud();
+        easyCam.end();
+    
+    /*
+     glCamera.begin();
+     drawPointCloud();
+     glCamera.end();
+     */
     
 }
 
@@ -77,7 +95,6 @@ void testApp::drawPointCloud() {
     ofEnableBlendMode(OF_BLENDMODE_ADD);
     
     // 設定した間隔で、画面の深度情報と色を取得してメッシュの頂点に設定
-    //    int step = gui.getValueI("step");
     for(int y = 0; y < h; y += step)
     {
         for(int x = 0; x < w; x += step)
@@ -88,8 +105,8 @@ void testApp::drawPointCloud() {
                 {
                     if( y > suimen)
                     {
-                      //  mesh.addColor(kinect.getColorAt(x,y));
-                        mesh.addColor(ofFloatColor(0,0,255,100));
+                        mesh.addColor(ofFloatColor(0,0,255,50)); //青色の追加
+                        //                       mesh.addColor(kinect.getColorAt(x,y));
                     }else{
                         mesh.addColor(kinect.getColorAt(x,y));
                     }
@@ -101,25 +118,25 @@ void testApp::drawPointCloud() {
         }
     }
     
-    // 震度テストを有効に
+    // 深度テストを有効に
     glEnable(GL_DEPTH_TEST);
     
-    //ライト利用可能
-    light.enable();
-    light.setSpotlight();
-    light.setPosition(-100, 100, 100);
-    light.setAmbientColor(ofFloatColor(1.0, 1.0,  1.0  ,1.0));
-    light.setDiffuseColor(ofFloatColor(0.5, 0.5, 1.0) );
-    light.setSpecularColor(ofFloatColor(1.0, 1.0, 1.0));
+    /*
+     //ライト利用可能
+     light.enable();
+     light.setSpotlight();
+     light.setPosition(-100, 100, 100);
+     light.setAmbientColor(ofFloatColor(1.0, 1.0,  1.0  ,1.0));
+     light.setDiffuseColor(ofFloatColor(0.5, 0.5, 1.0) );
+     light.setSpecularColor(ofFloatColor(1.0, 1.0, 1.0));
+     */
     
     // メッシュの頂点を描画
     glPointSize(point_size);
     ofPushMatrix();
     ofScale(1, -1, -1);
-    ofTranslate(0, 0, posz);
-    
+    //    ofTranslate(0, 0, posz);
     mesh.drawVertices();
-    
     /*
      //ここで平面を描けないかなぁ
      box.set(1500, 480-suimen, 1500);
@@ -150,7 +167,7 @@ void testApp::keyPressed (int key) {
 }
 
 void testApp::mouseDragged(int x, int y, int button){
-    //   	gui.mouseDragged(x, y, button);
+//      	gui.mouseDragged(x, y, button);
 }
 
 void testApp::mousePressed(int x, int y, int button){
