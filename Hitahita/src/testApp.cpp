@@ -114,6 +114,8 @@ void testApp::drawPointCloud() {
                     mesh.addColor(ofFloatColor(255,255,255));
                 }
                 mesh.addVertex(kinect.getWorldCoordinateAt(x, y));
+                ofSetColor(kinect.getColorAt(x,y));
+                 ofSphere(x, y, kinect.getDistanceAt(x, y), point_size);
             }
         }
     }
