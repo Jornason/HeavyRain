@@ -1,9 +1,16 @@
 <group>
 	<pick_color>1</pick_color>
 	<angle>0</angle>
-	<point_size>2.5</point_size>
+	<point_size>5</point_size>
 	<setp>2</setp>
 	<Z_position>-1000</Z_position>
 	<Z_thresh>1000</Z_thresh>
 <group/>
+<step>3</step>
+	<water_surface>432</water_surface>
+	<water_surface_X>-190</water_surface_X>
+	<water_surface_Z>1230</water_surface_Z>
+	<cameraX>0</cameraX>
+	<cameraY>0</cameraY>
+	<cameraZ>0</cameraZ>
 </group>
