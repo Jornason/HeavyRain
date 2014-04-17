@@ -34,19 +34,19 @@ void testApp::setup() {
      gui.loadSettings("controlPanelSettings.xml");
      */
     gui.setup();
-    gui.add(pick_color.set("pick color", true));
+    //    gui.add(pick_color.set("pick color", true));
     gui.add(angle.set("angle", 0, -40, 40));
     gui.add(point_size.set("point size", 5, 0, 50.0));
-    gui.add(step.set("step",10,1,100));
+    gui.add(step.set("step",10,3,100));
     gui.add(posz.set("Z position", -700, -4000, 1000));
     gui.add(thresh.set("Z thresh", 4000, 0, 10000));
     gui.add(suimen.set("water surface", 200, 0, 480));
-    gui.add(suimenX.set("water surface X", 0, -1000, 1000));
-    gui.add(suimenZ.set("water surface Z", 1230, -3000, 3000));
+    //    gui.add(suimenX.set("water surface X", 0, -1000, 1000));
+    //    gui.add(suimenZ.set("water surface Z", 1230, -3000, 3000));
     
-    gui.add(cameraX.set("cameraX", 0, -1000, 1000));
-    gui.add(cameraY.set("cameraY", 0, -1000, 1000));
-    gui.add(cameraZ.set("cameraZ", 0, -1000, 1000));
+    //    gui.add(cameraX.set("cameraX", 0, -1000, 1000));
+    //    gui.add(cameraY.set("cameraY", 0, -1000, 1000));
+    //    gui.add(cameraZ.set("cameraZ", 0, -1000, 1000));
     
     //  注視点　デフォルト
     lookVec = ofVec3f(0,0,0);
@@ -72,27 +72,18 @@ void testApp::update() {
 void testApp::draw() {
     easyCam.begin();
     //ポイントクラウドの描画
-        light.enable();
+    light.enable();
     drawPointCloud();
-        light.disable();
+    light.disable();
     easyCam.end();
-    
-    /*
-     glCamera.begin();
-     drawPointCloud();
-     glCamera.end();
-     */
-        gui.draw();
+    gui.draw();
 }
 
 void testApp::drawPointCloud() {
     // 画面の幅と高さ
     int w = 640;
     int h = 480;
-    // メッシュを生成
-    //    ofMesh mesh;
-    //    mesh.setMode(OF_PRIMITIVE_POINTS);
-    //    ofEnableBlendMode(OF_BLENDMODE_ADD);
+    
     ofPushMatrix();
     ofScale(1, -1, -1);
     ofTranslate(-kinect.width/2, -kinect.height/2, posz);
@@ -104,59 +95,18 @@ void testApp::drawPointCloud() {
     {
         for(int x = 0; x < w; x += step)
         {
-            if(kinect.getDistanceAt(x, y) < thresh)
-            {
-                if (pick_color)
+            if(kinect.getDistanceAt(x, y) < thresh) {
+                if( y > suimen)
                 {
-                    if( y > suimen)
-                    {
-                        //                        mesh.addColor(ofFloatColor(0,0,255,50)); //青色の追加
-                        //                                             mesh.addColor(kinect.getColorAt(x,y));
-                        ofSetColor(0,0,255,50);
-                    }else{
-                        //                        mesh.addColor(kinect.getColorAt(x,y));
-                        ofSetColor(kinect.getColorAt(x,y));
-                    }
-                } else {
-                    //                    mesh.addColor(ofFloatColor(255,255,255));
+                    ofSetColor(0,0,255);
+                }else{
                     ofSetColor(kinect.getColorAt(x,y));
                 }
-                //                mesh.addVertex(kinect.getWorldCoordinateAt(x, y));
-                
-                ofSphere(x, y, kinect.getDistanceAt(x, y), point_size);
+                //            ofSetColor(kinect.getColorAt(x,y));
+                ofDrawSphere(x, y, kinect.getDistanceAt(x,y), point_size);
             }
         }
     }
-    
-    
-    
-    /*
-     //ライト利用可能
-     light.enable();
-     light.setSpotlight();
-     light.setPosition(-100, 100, 100);
-     light.setAmbientColor(ofFloatColor(1.0, 1.0,  1.0  ,1.0));
-     light.setDiffuseColor(ofFloatColor(0.5, 0.5, 1.0) );
-     light.setSpecularColor(ofFloatColor(1.0, 1.0, 1.0));
-     */
-    
-    //    // メッシュの頂点を描画
-    //    glPointSize(point_size);
-    //    ofPushMatrix();
-    //    ofScale(1, -1, -1);
-    //       ofTranslate(0, 0, posz);
-    //    mesh.drawVertices();
-    
-    //    ofEnableAlphaBlending();
-    //     //ここで平面を描けないかなぁ
-    //     box.set(1500, 480-suimen, 1500);
-    //     for(int i=0; i<5; i++){
-    //     box.setSideColor(i, ofFloatColor(0, 0,1.0, 0.7));
-    //     }
-    //     box.setPosition(suimenX, suimen, suimenZ);
-    //     box.draw();
-    //    ofDisableAlphaBlending();
-    
     glDisable(GL_DEPTH_TEST);
     ofPopMatrix();
 }
