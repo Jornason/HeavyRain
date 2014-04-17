@@ -70,11 +70,11 @@ void testApp::update() {
 }
 
 void testApp::draw() {
-    gui.draw();
-    
     easyCam.begin();
     //ポイントクラウドの描画
+        light.enable();
     drawPointCloud();
+        light.disable();
     easyCam.end();
     
     /*
@@ -82,7 +82,7 @@ void testApp::draw() {
      drawPointCloud();
      glCamera.end();
      */
-    
+        gui.draw();
 }
 
 void testApp::drawPointCloud() {
